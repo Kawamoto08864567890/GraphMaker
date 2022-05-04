@@ -6,7 +6,8 @@ Simple graphing application for lab members.
 
 ## DEMO
 
-![DEMO_image](https://user-images.githubusercontent.com/92702803/166684945-6ffc517b-9157-41f3-8058-6e6ee9ed78a4.jpg)
+![DEMO_image](https://user-images.githubusercontent.com/92702803/166691690-2e673cdc-0330-4f67-b9f4-b98f6372e99c.png)
+
 
 ## Requirements
 
