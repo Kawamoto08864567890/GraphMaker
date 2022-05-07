@@ -11,7 +11,6 @@ import matplotlib.pyplot as plt #
 import unicodedata # 
 import re
 import os
-from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 ##### tab1 ####
