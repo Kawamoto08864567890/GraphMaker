@@ -1,13 +1,24 @@
-# GraphMaker
+# GraphMaker v1.1.0
 
-Simple graphing application for lab members.
+Simple graphing GUI.
 
+# 
 
+## How to use
+1. Load files:
+```
+```
+2. Select Delimiter to use and Row number(s) to use as the column names:
+```
+```
+3. Draw a graph:
+```
+```
+## Features
 
-## DEMO
+## Built with
 
-![DEMO_image](https://user-images.githubusercontent.com/92702803/166691690-2e673cdc-0330-4f67-b9f4-b98f6372e99c.png)
-
+- [Python](https://www.python.org/downloads/)
 
 ## Requirements
 
@@ -19,7 +30,7 @@ Simple graphing application for lab members.
 
 ## Installation
 ```bash
-pip install pandas
+$ pip install pandas
 
-pip install matplotlib
+$ pip install matplotlib
 ```
