@@ -11,16 +11,17 @@ import matplotlib.pyplot as plt #
 import unicodedata # 
 import re
 import os
+from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
-##### tab1 ####
+##### Tab1 ####
 btn_fileref_click_flag = False
 sep_value = " "
 header_value = None
 x_axes_selected_flag = False
 y_axes_selected_flag = False
 
-##### tab2 ####
+##### Tab2 ####
 save_flag1 = False
 save_flag2 = False # Can save graph if both flag is True.
 ylim_lst = [None, None]
@@ -43,25 +44,25 @@ def update_tabel(num):
         df = pd.read_table(readfile, header=header_value)
     else: #other
         df = pd.read_csv(readfile, sep=sep_value, header=header_value)
-    pt = Table(frame_table, showstatusbar=True, dataframe=df)
+    pt = Table(Frame2_T1, showstatusbar=True, dataframe=df)
     pt.show()
 
 
 def turn_normal():
-    btn_fileref_pass["state"] = "normal"
-    radio_sep0["state"] = "normal"
-    radio_sep1["state"] = "normal"
-    radio_sep2["state"] = "normal"
-    radio_sep3["state"] = "normal"
-    radio_header0["state"] = "normal"
-    radio_header1["state"] = "normal"
-    label_axes_select["state"] = "normal"
-    entry_x_axes_select["state"] = "normal"
-    btn_entry_x_axes_select["state"] = "normal"
-    label_x_axes_select["state"] = "normal"
-    entry_y_axes_select["state"] = "normal"
-    btn_entry_y_axes_select["state"] = "normal"
-    label_y_axes_select["state"] = "normal"
+    Btn2_T1F1Lf1F1["state"] = "normal"
+    Radio0_T1F1Lf2F1["state"] = "normal"
+    Radio1_T1F1Lf2F1["state"] = "normal"
+    Radio2_T1F1Lf2F1["state"] = "normal"
+    Radio3_TF1Lf2F2["state"] = "normal"
+    Radio0_T1F1Lf3["state"] = "normal"
+    Radio1_T1F1Lf3["state"] = "normal"
+    Label_T1F1Lf4["state"] = "normal"
+    Entry_T1F1Lf4Lf1["state"] = "normal"
+    Btn_T1F1Lf4Lf1["state"] = "normal"
+    Label_T1F1Lf4Lf1["state"] = "normal"
+    Entry_T1F1Lf4Lf2["state"] = "normal"
+    Btn_T1F1Lf4Lf2["state"] = "normal"
+    Label_T1F1Lf4Lf2["state"] = "normal"
 
 
 def btn_fileref_click():
@@ -108,31 +109,31 @@ def btn_fileref_pass_click():
 
 
 def radio_sep():
-    var = var_sep.get()
+    var = Var_radio_T1F1Lf2.get()
     if var == 3:
-        entry_sep["state"] = "normal"
-        btn_entry_sep["state"] = "normal"
+        Entry_T1F1Lf2F2["state"] = "normal"
+        Btn_T1F1Lf2F2["state"] = "normal"
     else:
         update_tabel(var)
-        entry_sep.delete(0, tk.END)
-        entry_sep["state"] = "disabled"
-        btn_entry_sep["state"] = "disabled"    
+        Entry_T1F1Lf2F2.delete(0, tk.END)
+        Entry_T1F1Lf2F2["state"] = "disabled"
+        Btn_T1F1Lf2F2["state"] = "disabled"    
          
     
 def btn_entry_sep_click():
     global sep_value
     try:
-        sep_value = var_entry_sep.get()
+        sep_value = var_entry_T1F1Lf2.get()
         update_tabel(3)
     except:
         messagebox.showerror("不正な入力", "不正な入力です")
 
 
-def btn_entry_header_click():
+def btn_Entry_T1F1Lf3_click():
     global header_value
     try:
-        header_value = int(var_entry_header.get()) - 1
-        update_tabel(var_sep.get())
+        header_value = int(var_entry_T1F1Lf3.get()) - 1
+        update_tabel(Var_radio_T1F1Lf2.get())
     except pd.errors.ParserError:
         messagebox.showerror("不正な入力", "入力値が行数を超えています")
     except:
@@ -141,24 +142,24 @@ def btn_entry_header_click():
 
 def radio_header():
     global header_value
-    var = var_header.get()
+    var = var_radio_T1F1Lf3.get()
     if var == 0:
         header_value = None
-        update_tabel(var_sep.get())
-        entry_header["state"] = "disabled"
-        label_entry_header["state"] = "disabled"
-        btn_entry_header["state"] = "disabled"
-        var_entry_header.set("1")
+        update_tabel(Var_radio_T1F1Lf2.get())
+        Entry_T1F1Lf3["state"] = "disabled"
+        Label_T1F1Lf3["state"] = "disabled"
+        Btn_T1F1Lf3["state"] = "disabled"
+        var_entry_T1F1Lf3.set("1")
     else:
-        entry_header["state"] = "normal"
-        label_entry_header["state"] = "normal"
-        btn_entry_header["state"] = "normal"
+        Entry_T1F1Lf3["state"] = "normal"
+        Label_T1F1Lf3["state"] = "normal"
+        Btn_T1F1Lf3["state"] = "normal"
 
 
 #---適用ボタン-グラフ描画-------------------------------------------------
 def btn_pre_click(flag):
     global ylim_lst, selected_x_column, selected_y_column, df, save_flag1, readfile, fig
-    label_saved["fg"] = root.cget("background")
+    Label_saved_T2F1["foreground"] = root.cget("background")
     try:
         plt.clf()
         plt.close()
@@ -185,53 +186,53 @@ def btn_pre_click(flag):
 
         fig.tight_layout()
 
-        canvas_graph = FigureCanvasTkAgg(fig, tab2)
+        canvas_graph = FigureCanvasTkAgg(fig, Tab2)
         canvas_graph.get_tk_widget().place(x=475, y=13)
     except:
         messagebox.showerror("エラー", "unknownERROR")
     else:
         save_flag1 = True
         if save_flag1 and save_flag2:
-            btn_save["state"] = "normal"
+            Btn_save_T2F1["state"] = "normal"
 
 
 def check_axes_selected():
     global x_axes_selected_flag, y_axes_selected_flag
     if x_axes_selected_flag and y_axes_selected_flag:
-        btn_changepage["state"] = "normal"
-        btn_3_max_apply["state"] = "normal"
-        btn_3_min_apply["state"] = "normal"
+        Btn_T1F1["state"] = "normal"
+        Btn_T2F1Lf1Lf1C4["state"] = "normal"
+        Btn_T2F1Lf1Lf2C5["state"] = "normal"
         btn_pre_click(True)
-        btn_save_dir["state"] = "normal"
-        btn_save["state"] = "normal"
+        Btn_savedir_T2F1["state"] = "normal"
+        Btn_save_T2F1["state"] = "normal"
 
 
 def btn_entry_x_axes_select_click():
     global df, selected_x_column, x_axes_selected_flag
     try:
-        selected_x_column_tmp = int(entry_x_axes_select.get())
+        selected_x_column_tmp = int(Entry_T1F1Lf4Lf1.get())
         if selected_x_column_tmp > len(df.columns) - 1:
-            messagebox.showerror("不正な入力", f"0~{int(len(df.columns))}の整数を入力してください")
+            messagebox.showerror("ERROR01", f"0~{int(len(df.columns))}の整数を入力してください")
         else:
             selected_x_column = selected_x_column_tmp
-            var_label_x_axes_select.set(f"選択中 : {selected_x_column}")
-            label_x_axes_select["fg"] = "black"
+            var_str_T1F1Lf4Lf1.set(f"選択中 : {selected_x_column}")
+            Label_T1F1Lf4Lf1["foreground"] = "black"
             x_axes_selected_flag = True
     except:
-        messagebox.showerror("不正な入力", f"0~{int(len(df.columns))}以上の整数を入力してください")
+        messagebox.showerror("ERROR02", f"0~{int(len(df.columns))}以上の整数を入力してください")
     else:
         check_axes_selected()
 
 def btn_entry_y_axes_select_click():
     global df, selected_y_column, y_axes_selected_flag
     try:
-        selected_y_column_tmp = int(entry_y_axes_select.get())
+        selected_y_column_tmp = int(Entry_T1F1Lf4Lf2.get())
         if selected_y_column_tmp > len(df.columns) - 1:
             messagebox.showerror("不正な入力", f"0~{int(len(df.columns))}の整数を入力してください")
         else:
             selected_y_column = selected_y_column_tmp
-            var_label_y_axes_select.set(f"選択中 : {selected_y_column}")
-            label_y_axes_select["fg"] = "black"
+            var_str_T1F1Lf4Lf2.set(f"選択中 : {selected_y_column}")
+            Label_T1F1Lf4Lf2["foreground"] = "black"
             y_axes_selected_flag = True
     except:
         messagebox.showerror("不正な入力", f"0~{int(len(df.columns))}以上の整数を入力してください")
@@ -247,13 +248,13 @@ def btn_changepage_click():
 #                                        tab 2
 ##########################################################################################
 def btn_3_max_apply_1_selected():
-    selected_index = listbox_max1.curselection()
-    data = listbox_max1.get(selected_index)
+    selected_index = Listbox_T2F1Lf1Lf1C2.curselection()
+    data = Listbox_T2F1Lf1Lf1C2.get(selected_index)
     return data
 
 def btn_3_max_apply_2_selected():
-    selected_index = listbox_max2.curselection()
-    data = listbox_max2.get(selected_index)
+    selected_index = Listbox_T2F1Lf1Lf1C4.curselection()
+    data = Listbox_T2F1Lf1Lf1C4.get(selected_index)
     return data
 
 #---上限-適用ボタン------------------------------
@@ -261,9 +262,9 @@ def btn_3_max_apply_clilck():
     global ylim_lst
     s = ""
     signlst = ["+", "-"]
-    label_saved["fg"] = root.cget("background")
+    Label_saved_T2F1["foreground"] = root.cget("background")
     try:
-        s += signlst[rdo_3_max_var.get()]
+        s += signlst[var_radio_T2F1Lf1Lf1C1.get()]
         s += btn_3_max_apply_1_selected()
         s += "e+"
         s += btn_3_max_apply_2_selected()
@@ -278,13 +279,13 @@ def btn_3_max_apply_clilck():
 #-----------------------------------------------
 
 def btn_3_min_apply_1_selected():
-    selected_index = listbox_min1.curselection()
-    data = listbox_min1.get(selected_index)
+    selected_index = Listbox_T2F1Lf1Lf2C2.curselection()
+    data = Listbox_T2F1Lf1Lf2C2.get(selected_index)
     return data
 
 def btn_3_min_apply_2_selected():
-    selected_index = listbox_min2.curselection()
-    data = listbox_min2.get(selected_index)
+    selected_index = Listbox_T2F1Lf1Lf2C4.curselection()
+    data = Listbox_T2F1Lf1Lf2C4.get(selected_index)
     return data
 
 #---下限-適用ボタン------------------------------
@@ -292,9 +293,9 @@ def btn_3_min_apply_clilck():
     global ylim_lst
     s = ""
     signlst = ["+", "-"]
-    label_saved["fg"] = root.cget("background")
+    Label_saved_T2F1["foreground"] = root.cget("background")
     try:
-        s += signlst[rdo_3_min_var.get()]
+        s += signlst[var_radio_T2F1Lf1Lf2C1.get()]
         s += btn_3_min_apply_1_selected()
         s += "e+"
         s += btn_3_min_apply_2_selected()
@@ -313,14 +314,14 @@ def btn_3_min_apply_clilck():
 #---保存先フォルダ選択ボタン------------------------------------------------------------
 def btn_save_dir_click():
     global save_dir, idir, save_flag2
-    label_saved["fg"] = root.cget("background")
+    Label_saved_T2F1["foreground"] = root.cget("background")
     dir = filedialog.askdirectory(initialdir = Path(idir).parent)
     if dir != "":
         save_dir = dir
-        btn_save_dir["fg"] = "black"
+        Btn_savedir_T2F1["foreground"] = "black"
         save_flag2 = True
         if save_flag1 and save_flag2:
-            btn_save["state"] = "normal"
+            Btn_save_T2F1["state"] = "normal"
 
 #---保存ボタン------------------------------
 def btn_save_click():
@@ -332,10 +333,10 @@ def btn_save_click():
             messagebox_ask_save = messagebox.askokcancel(title="確認", message="同名ファイルが存在します.\n上書きしますか?")
             if messagebox_ask_save:
                 fig.savefig(save_file_name)
-                label_saved["fg"] = "black"
+                Label_saved_T2F1["foreground"] = "black"
         else:
             fig.savefig(save_file_name)
-            label_saved["fg"] = "black"
+            Label_saved_T2F1["foreground"] = "black"
     except:
         messagebox.showwarning("UNKNOWN ERROR", "btn_save_click")
 
@@ -360,142 +361,142 @@ root.protocol('WM_DELETE_WINDOW', _destroyWindow)
 
 notebook = ttk.Notebook(root)
 
-tab1 = tk.Frame(notebook)
-tab2 = tk.Frame(notebook)
+Tab1 = ttk.Frame(notebook)
+Tab2 = ttk.Frame(notebook)
 
-tab1.drop_target_register(DND_FILES)
-tab1.dnd_bind("<<Drop>>", file_drop)
+Tab1.drop_target_register(DND_FILES)
+Tab1.dnd_bind("<<Drop>>", file_drop)
 
-tab1.pack(expand=True, fill=tk.BOTH)
-tab2.pack(expand=True, fill=tk.BOTH)
-notebook.add(tab1, text="1. データ抽出", padding=3)
-notebook.add(tab2, text="2. グラフ作成", padding=3)
+Tab1.pack(expand=True, fill=tk.BOTH)
+Tab2.pack(expand=True, fill=tk.BOTH)
+notebook.add(Tab1, text="1. データ抽出", padding=3)
+notebook.add(Tab2, text="2. グラフ作成", padding=3)
 notebook.pack(expand=True, fill=tk.BOTH)
 
 ##########################################################################################
 #                                           tab 1
 ##########################################################################################
 #-------------------------------------------------------------------------------
-frame_set = tk.Frame(tab1, bd=5, relief=tk.GROOVE, width=300, height=600)
-frame_set.propagate(False)
-frame_set.pack(side=tk.LEFT, padx=10, pady=10, fill=tk.Y)
+Frame1_T1 = ttk.Frame(Tab1, width=300, height=600)
+Frame1_T1.propagate(False)
+Frame1_T1.pack(side=tk.LEFT, padx=10, pady=10, fill=tk.Y)
 #-------------------------------------------------------------------------------
-labelframe_fileref = tk.LabelFrame(frame_set, text="ファイル選択",  width=250, height=110)
-labelframe_fileref.propagate(False)
-labelframe_fileref.pack(side=tk.TOP, pady=10)
+Labelframe1_T1F1 = ttk.LabelFrame(Frame1_T1, text="ファイル選択",  width=250, height=110)
+Labelframe1_T1F1.propagate(False)
+Labelframe1_T1F1.pack(side=tk.TOP, pady=10)
 
-label_filedrop1 = tk.Label(labelframe_fileref, text="ここにファイルをドロップ")
-label_filedrop1.pack(side=tk.TOP)
-label_filedrop2 = tk.Label(labelframe_fileref, text="または")
-label_filedrop2.pack(side=tk.TOP, pady=5)
+label1_T1F1Lf1 = ttk.Label(Labelframe1_T1F1, text="ここにファイルをドロップ")
+label1_T1F1Lf1.pack(side=tk.TOP)
+label2_T1F1Lf1 = ttk.Label(Labelframe1_T1F1, text="または")
+label2_T1F1Lf1.pack(side=tk.TOP, pady=5)
 
-frame_fileref = tk.Frame(labelframe_fileref)
-frame_fileref.pack(side=tk.TOP)
+Frame1_T1F1Lf1 = ttk.Frame(Labelframe1_T1F1)
+Frame1_T1F1Lf1.pack(side=tk.TOP, fill=tk.BOTH)
 
-btn_fileref = tk.Button(frame_fileref, text='ファイル参照', command=btn_fileref_click)
-btn_fileref.pack(side=tk.LEFT, padx=(70,0))
+Btn1_T1F1Lf1F1 = ttk.Button(Frame1_T1F1Lf1, text='ファイル参照', command=btn_fileref_click)
+Btn1_T1F1Lf1F1.pack(side=tk.LEFT, padx=(85,0))
 
-btn_fileref_pass = tk.Button(frame_fileref, text="...", command=btn_fileref_pass_click, state="disabled")
-btn_fileref_pass.pack(side=tk.LEFT, padx=(50,0))
+Btn2_T1F1Lf1F1 = ttk.Button(Frame1_T1F1Lf1, text="...", command=btn_fileref_pass_click, state="disabled", width=3)
+Btn2_T1F1Lf1F1.pack(side=tk.LEFT, padx=(30,0))
 #-------------------------------------------------------------------------------
-labelframe_sep = tk.LabelFrame(frame_set, text = "区切り", width=250, height=110)
-labelframe_sep.propagate(False)
-labelframe_sep.pack(side=tk.TOP, padx=10, pady=10)
+Labelframe2_T1F1 = ttk.LabelFrame(Frame1_T1, text = "区切り", width=250, height=110)
+Labelframe2_T1F1.propagate(False)
+Labelframe2_T1F1.pack(side=tk.TOP, padx=10, pady=10)
 #-------------------------------------------------------------------------------
-frame_sep_top = tk.Frame(labelframe_sep, width=220, height=50)
-frame_sep_top.propagate(False)
-frame_sep_top.pack(side=tk.TOP, expand=True)
+Frame1_T1F1Lf2 = ttk.Frame(Labelframe2_T1F1, width=220, height=50)
+Frame1_T1F1Lf2.propagate(False)
+Frame1_T1F1Lf2.pack(side=tk.TOP, expand=True)
 
-var_sep = tk.IntVar()
-var_sep.set(0)
-radio_sep0 = tk.Radiobutton(frame_sep_top, value=0, text="空白区切り", variable=var_sep, command=radio_sep, state="disabled")
-radio_sep0.pack(side=tk.LEFT)
-radio_sep1 = tk.Radiobutton(frame_sep_top, value=1, text="カンマ(,)", variable=var_sep, command=radio_sep, state="disabled")
-radio_sep1.pack(side=tk.LEFT)
-radio_sep2 = tk.Radiobutton(frame_sep_top, value=2, text="tab(\\t)", variable=var_sep, command=radio_sep, state="disabled")
-radio_sep2.pack(side=tk.LEFT)
+Var_radio_T1F1Lf2 = tk.IntVar()
+Var_radio_T1F1Lf2.set(0)
+Radio0_T1F1Lf2F1 = ttk.Radiobutton(Frame1_T1F1Lf2, value=0, text="空白区切り", variable=Var_radio_T1F1Lf2, command=radio_sep, state="disabled", takefocus=False)
+Radio0_T1F1Lf2F1.pack(side=tk.LEFT)
+Radio1_T1F1Lf2F1 = ttk.Radiobutton(Frame1_T1F1Lf2, value=1, text="カンマ(,)", variable=Var_radio_T1F1Lf2, command=radio_sep, state="disabled", takefocus=False)
+Radio1_T1F1Lf2F1.pack(side=tk.LEFT)
+Radio2_T1F1Lf2F1 = ttk.Radiobutton(Frame1_T1F1Lf2, value=2, text="tab(\\t)", variable=Var_radio_T1F1Lf2, command=radio_sep, state="disabled", takefocus=False)
+Radio2_T1F1Lf2F1.pack(side=tk.LEFT)
 #---------------------------------------
-frame_sep_bottom = tk.Frame(labelframe_sep, width=250, height=50)
-frame_sep_bottom.propagate(False)
-frame_sep_bottom.pack(side=tk.TOP, expand=True)
+Frame2_T1F1Lf2 = ttk.Frame(Labelframe2_T1F1, width=250, height=50)
+Frame2_T1F1Lf2.propagate(False)
+Frame2_T1F1Lf2.pack(side=tk.TOP, expand=True)
 
-radio_sep3 = tk.Radiobutton(frame_sep_bottom, value=3, text="その他", variable=var_sep, command=radio_sep, state="disabled")
-radio_sep3.pack(side=tk.LEFT, padx=(13,0))
+Radio3_TF1Lf2F2 = ttk.Radiobutton(Frame2_T1F1Lf2, value=3, text="その他", variable=Var_radio_T1F1Lf2, command=radio_sep, state="disabled", takefocus=False)
+Radio3_TF1Lf2F2.pack(side=tk.LEFT, padx=(13,0))
 
-var_entry_sep = tk.StringVar()
-entry_sep = tk.Entry(frame_sep_bottom, textvariable=var_entry_sep, width=5, state="disabled")
-entry_sep.pack(side=tk.LEFT)
-btn_entry_sep = tk.Button(frame_sep_bottom, text="適用", state="disabled", command=btn_entry_sep_click)
-btn_entry_sep.pack(side=tk.LEFT, padx=5)
+var_entry_T1F1Lf2 = tk.StringVar()
+Entry_T1F1Lf2F2 = ttk.Entry(Frame2_T1F1Lf2, textvariable=var_entry_T1F1Lf2, width=5, state="disabled")
+Entry_T1F1Lf2F2.pack(side=tk.LEFT)
+Btn_T1F1Lf2F2 = ttk.Button(Frame2_T1F1Lf2, text="適用", state="disabled", command=btn_entry_sep_click)
+Btn_T1F1Lf2F2.pack(side=tk.LEFT, padx=5)
 
 #-------------------------------------------------------------------------------
-labelframe_header = tk.LabelFrame(frame_set, text = "ヘッダー行", width=250, height=60)
-labelframe_header.propagate(False)
-labelframe_header.pack(side=tk.TOP, padx=10, pady=10)
+Labelframe3_T1F1 = ttk.LabelFrame(Frame1_T1, text = "ヘッダー行", width=250, height=60)
+Labelframe3_T1F1.propagate(False)
+Labelframe3_T1F1.pack(side=tk.TOP, padx=10, pady=10)
 
-var_header = tk.IntVar()
-var_header.set(0)
-radio_header0 = tk.Radiobutton(labelframe_header, value=0, text="なし", variable=var_header, command=radio_header, state="disabled")
-radio_header0.pack(side=tk.LEFT, padx=10)
-radio_header1 = tk.Radiobutton(labelframe_header, value=1, variable=var_header, command=radio_header, state="disabled")
-radio_header1.pack(side=tk.LEFT, padx=(10,0))
+var_radio_T1F1Lf3 = tk.IntVar()
+var_radio_T1F1Lf3.set(0)
+Radio0_T1F1Lf3 = ttk.Radiobutton(Labelframe3_T1F1, value=0, text="なし", variable=var_radio_T1F1Lf3, command=radio_header, state="disabled", takefocus=False)
+Radio0_T1F1Lf3.pack(side=tk.LEFT, padx=10)
+Radio1_T1F1Lf3 = ttk.Radiobutton(Labelframe3_T1F1, value=1, variable=var_radio_T1F1Lf3, command=radio_header, state="disabled", takefocus=False)
+Radio1_T1F1Lf3.pack(side=tk.LEFT, padx=(10,0))
 
-var_entry_header = tk.StringVar()
-var_entry_header.set("1")
-entry_header = tk.Entry(labelframe_header, textvariable=var_entry_header, width=5, state="disabled")
-entry_header.pack(side=tk.LEFT)
+var_entry_T1F1Lf3 = tk.StringVar()
+var_entry_T1F1Lf3.set("1")
+Entry_T1F1Lf3 = ttk.Entry(Labelframe3_T1F1, textvariable=var_entry_T1F1Lf3, width=5, state="disabled")
+Entry_T1F1Lf3.pack(side=tk.LEFT)
 
-label_entry_header = tk.Label(labelframe_header, text="行まで", state="disabled")
-label_entry_header.pack(side=tk.LEFT)
+Label_T1F1Lf3 = ttk.Label(Labelframe3_T1F1, text="行まで", state="disabled")
+Label_T1F1Lf3.pack(side=tk.LEFT)
 
-btn_entry_header = tk.Button(labelframe_header, text="適用", state="disabled", command=btn_entry_header_click)
-btn_entry_header.pack(side=tk.LEFT)
+Btn_T1F1Lf3 = ttk.Button(Labelframe3_T1F1, text="適用", state="disabled", command=btn_Entry_T1F1Lf3_click)
+Btn_T1F1Lf3.pack(side=tk.LEFT)
 #-------------------------------------------------------------------------------
-labelframe_axes_select = tk.LabelFrame(frame_set, text="軸選択", width=250, height=180)
-labelframe_axes_select.propagate(False)
-labelframe_axes_select.pack(side=tk.TOP)
+Labelframe4_T1F1 = ttk.LabelFrame(Frame1_T1, text="軸選択", width=250, height=180)
+Labelframe4_T1F1.propagate(False)
+Labelframe4_T1F1.pack(side=tk.TOP)
 
-label_axes_select = tk.Label(labelframe_axes_select, text="列番号を選択してください", state="disabled")
-label_axes_select.pack(side=tk.TOP)
+Label_T1F1Lf4 = ttk.Label(Labelframe4_T1F1, text="列番号を選択してください", state="disabled")
+Label_T1F1Lf4.pack(side=tk.TOP)
 
 #------------------------------------------------------------
-labelframe_x_axes_select = tk.LabelFrame(labelframe_axes_select, text="X軸", width=230, height=60)
-labelframe_x_axes_select.propagate(False)
-labelframe_x_axes_select.pack(side=tk.TOP, expand=True, pady=5)
+Labelframe1_T1F1Lf4 = ttk.LabelFrame(Labelframe4_T1F1, text="X軸", width=230, height=60)
+Labelframe1_T1F1Lf4.propagate(False)
+Labelframe1_T1F1Lf4.pack(side=tk.TOP, expand=True, pady=5)
 
-entry_x_axes_select = tk.Entry(labelframe_x_axes_select, state="disabled", width=5)
-entry_x_axes_select.pack(side=tk.LEFT, padx=(50,10))
+Entry_T1F1Lf4Lf1 = ttk.Entry(Labelframe1_T1F1Lf4, state="disabled", width=5)
+Entry_T1F1Lf4Lf1.pack(side=tk.LEFT, padx=(20,10))
 
-btn_entry_x_axes_select = tk.Button(labelframe_x_axes_select, text="適用", state="disabled", command=btn_entry_x_axes_select_click)
-btn_entry_x_axes_select.pack(side=tk.LEFT)
+Btn_T1F1Lf4Lf1 = ttk.Button(Labelframe1_T1F1Lf4, text="適用", state="disabled", command=btn_entry_x_axes_select_click)
+Btn_T1F1Lf4Lf1.pack(side=tk.LEFT)
 
-var_label_x_axes_select = tk.StringVar()
-var_label_x_axes_select.set("未選択")
-label_x_axes_select = tk.Label(labelframe_x_axes_select, fg="red", textvariable=var_label_x_axes_select, state="disabled")
-label_x_axes_select.pack(side=tk.LEFT, padx=(10,0))
+var_str_T1F1Lf4Lf1 = tk.StringVar()
+var_str_T1F1Lf4Lf1.set("未選択")
+Label_T1F1Lf4Lf1 = ttk.Label(Labelframe1_T1F1Lf4, foreground="red", textvariable=var_str_T1F1Lf4Lf1, state="disabled")
+Label_T1F1Lf4Lf1.pack(side=tk.LEFT, padx=(10,0))
 #------------------------------------------------------------
-labelframe_y_axes_select = tk.LabelFrame(labelframe_axes_select, text="Y軸", width=230, height=60)
-labelframe_y_axes_select.propagate(False)
-labelframe_y_axes_select.pack(side=tk.TOP, expand=True, pady=5)
+Labelframe2_T1F1Lf4 = ttk.LabelFrame(Labelframe4_T1F1, text="Y軸", width=230, height=60)
+Labelframe2_T1F1Lf4.propagate(False)
+Labelframe2_T1F1Lf4.pack(side=tk.TOP, expand=True, pady=5)
 
-entry_y_axes_select = tk.Entry(labelframe_y_axes_select, state="disabled", width=5)
-entry_y_axes_select.pack(side=tk.LEFT, padx=(50,10))
+Entry_T1F1Lf4Lf2 = ttk.Entry(Labelframe2_T1F1Lf4, state="disabled", width=5)
+Entry_T1F1Lf4Lf2.pack(side=tk.LEFT, padx=(20,10))
 
-btn_entry_y_axes_select = tk.Button(labelframe_y_axes_select, text="適用", state="disabled", command=btn_entry_y_axes_select_click)
-btn_entry_y_axes_select.pack(side=tk.LEFT)
+Btn_T1F1Lf4Lf2 = ttk.Button(Labelframe2_T1F1Lf4, text="適用", state="disabled", command=btn_entry_y_axes_select_click)
+Btn_T1F1Lf4Lf2.pack(side=tk.LEFT)
 
-var_label_y_axes_select = tk.StringVar()
-var_label_y_axes_select.set("未選択")
-label_y_axes_select = tk.Label(labelframe_y_axes_select, fg="red", textvariable=var_label_y_axes_select, state="disabled")
-label_y_axes_select.pack(side=tk.LEFT, padx=(10,0))
+var_str_T1F1Lf4Lf2 = tk.StringVar()
+var_str_T1F1Lf4Lf2.set("未選択")
+Label_T1F1Lf4Lf2 = ttk.Label(Labelframe2_T1F1Lf4, foreground="red", textvariable=var_str_T1F1Lf4Lf2, state="disabled")
+Label_T1F1Lf4Lf2.pack(side=tk.LEFT, padx=(10,0))
 #-------------------------------------------------------------------------------
-btn_changepage = tk.Button(frame_set, text="グラフ作成!", command=btn_changepage_click, state="disabled", width=25, height=2)
-btn_changepage.pack(side=tk.TOP, pady=(15,0))
+Btn_T1F1 = ttk.Button(Frame1_T1, text="グラフ作成!", command=btn_changepage_click, state="disabled")
+Btn_T1F1.pack(side=tk.TOP, pady=(15,0))
 #-------------------------------------------------------------------------------
-frame_table = tk.Frame(tab1)
-frame_table.pack(side=tk.LEFT, expand=True, fill=tk.BOTH, padx=10, pady=10)
+Frame2_T1 = ttk.Frame(Tab1)
+Frame2_T1.pack(side=tk.LEFT, expand=True, fill=tk.BOTH, padx=10, pady=10)
 
-pt = Table(frame_table, showstatusbar=True)
+pt = Table(Frame2_T1, showstatusbar=True)
 pt.show()
 
 
@@ -503,152 +504,152 @@ pt.show()
 #                                        tab 2
 ##########################################################################################
 #---------------------------------------------------------------------------------------------
-frame1 = tk.Frame(tab2, bd=2, relief=tk.GROOVE)
-frame1.propagate(False)
-frame1.place(x=10, y=10, width=450, height=480)
+Frame1_T2 = ttk.Frame(Tab2)
+Frame1_T2.propagate(False)
+Frame1_T2.place(x=10, y=10, width=450, height=480)
 
 
 #----------3. y軸調整-----------------------------------------------------------------------
-labelframe_3_axes_title = tk.LabelFrame(frame1, text="3. Y軸調整", width=300, height=250, bd=5, relief=tk.GROOVE)
-labelframe_3_axes_title.propagate(False)
-labelframe_3_axes_title.place(x=130, y=130)
+Labelframe1_T2F1 = ttk.LabelFrame(Frame1_T2, text="Y軸調整", width=300, height=250)
+Labelframe1_T2F1.propagate(False)
+Labelframe1_T2F1.place(x=130, y=130)
 
 #-----------3-上限---------------------------------------------------------------------------
-labelframe_3_axes_ymax = tk.LabelFrame(labelframe_3_axes_title, text="上限")
-labelframe_3_axes_ymax.propagate(False)
-labelframe_3_axes_ymax.pack(side=tk.TOP, expand=True, fill=tk.BOTH, padx=10)
+Labelframe1_T2F1Lf1 = ttk.LabelFrame(Labelframe1_T2F1, text="上限")
+Labelframe1_T2F1Lf1.propagate(False)
+Labelframe1_T2F1Lf1.pack(side=tk.TOP, expand=True, fill=tk.BOTH, padx=10)
 
-#-----------3-上限-frame1---------------------------------------
-frame_3_max_1 = tk.Frame(labelframe_3_axes_ymax)
-frame_3_max_1.pack(side=tk.LEFT)
-#-----------3-上限-frame1-ラジオボタン---------------
-rdo_3_max_var = tk.IntVar()
-rdo_3_max_var.set(0)
-rdo_3_1 = tk.Radiobutton(frame_3_max_1, value=0, variable=rdo_3_max_var, text="+", font=("normal","15"))
-rdo_3_1.pack(side=tk.TOP)
-rdo_3_2 = tk.Radiobutton(frame_3_max_1, value=1, variable=rdo_3_max_var, text="-", font=("normal","15"))
-rdo_3_2.pack(side=tk.TOP)
+#-----------3-上限-Frame1_T2---------------------------------------
+Container1_T2F1Lf1Lf1 = ttk.Frame(Labelframe1_T2F1Lf1)
+Container1_T2F1Lf1Lf1.pack(side=tk.LEFT)
+#-----------3-上限-Frame1_T2-ラジオボタン---------------
+var_radio_T2F1Lf1Lf1C1 = tk.IntVar()
+var_radio_T2F1Lf1Lf1C1.set(0)
+Radio0_T2F1Lf1Lf1C1 = ttk.Radiobutton(Container1_T2F1Lf1Lf1, value=0, variable=var_radio_T2F1Lf1Lf1C1, text="+", takefocus=False)
+Radio0_T2F1Lf1Lf1C1.pack(side=tk.TOP)
+Radio1_T2F1Lf1Lf1C1 = ttk.Radiobutton(Container1_T2F1Lf1Lf1, value=1, variable=var_radio_T2F1Lf1Lf1C1, text="-", takefocus=False)
+Radio1_T2F1Lf1Lf1C1.pack(side=tk.TOP)
 
-#-----------3-上限-frame2---------------------------------------
-frame_3_max_2 = tk.Frame(labelframe_3_axes_ymax)
-frame_3_max_2.pack(side=tk.LEFT)
-#-----------3-上限-frame2-リストボックススクロール------
-listbox_max1_nums = (str(0.5*x) for x in range(0,20))
-listbox_max1_nums = list(listbox_max1_nums)
-listbox_max1_lists = tk.StringVar(value=listbox_max1_nums)
-listbox_max1 = tk.Listbox(frame_3_max_2, listvariable=listbox_max1_lists, height=4, width=5, exportselection=False)
-scrollbar_max1 = tk.Scrollbar(frame_3_max_2, orient=tk.VERTICAL, command=listbox_max1.yview)
-listbox_max1["yscrollcommand"] = scrollbar_max1.set
-listbox_max1.grid(row=0, column=0, padx=(10,0))
-scrollbar_max1.grid(row=0, column=1, sticky=(tk.N, tk.S))
+#-----------3-上限-frame2_T1---------------------------------------
+Container2_T2F1Lf1Lf1 = ttk.Frame(Labelframe1_T2F1Lf1)
+Container2_T2F1Lf1Lf1.pack(side=tk.LEFT)
+#-----------3-上限-frame2_T1-リストボックススクロール------
+listbox_nums_T2F1Lf1Lf1C2 = (str(0.5*x) for x in range(0,20))
+listbox_nums_T2F1Lf1Lf1C2 = list(listbox_nums_T2F1Lf1Lf1C2)
+listbox_lists_T2F1Lf1Lf1C2 = tk.StringVar(value=listbox_nums_T2F1Lf1Lf1C2)
+Listbox_T2F1Lf1Lf1C2 = tk.Listbox(Container2_T2F1Lf1Lf1, listvariable=listbox_lists_T2F1Lf1Lf1C2, height=4, width=5, exportselection=False)
+Scrollbar_T2F1Lf1Lf1C2 = tk.Scrollbar(Container2_T2F1Lf1Lf1, orient=tk.VERTICAL, command=Listbox_T2F1Lf1Lf1C2.yview)
+Listbox_T2F1Lf1Lf1C2["yscrollcommand"] = Scrollbar_T2F1Lf1Lf1C2.set
+Listbox_T2F1Lf1Lf1C2.grid(row=0, column=0, padx=(10,0))
+Scrollbar_T2F1Lf1Lf1C2.grid(row=0, column=1, sticky=(tk.N, tk.S))
 
 #-----------3-上限-frame3-----------------------------------------------------------------
-frame_3_max_3 = tk.Frame(labelframe_3_axes_ymax)
-frame_3_max_3.pack(side=tk.LEFT)
+Container3_T2F1Lf1Lf1 = ttk.Frame(Labelframe1_T2F1Lf1)
+Container3_T2F1Lf1Lf1.pack(side=tk.LEFT)
 #-----------3-上限-frame3-ラベル------------------------------------------
-label_3_max = tk.Label(frame_3_max_3, text="E+", font=("normal","12","bold"))
-label_3_max.pack()
+Label_T2F1Lf1Lf1C3 = ttk.Label(Container3_T2F1Lf1Lf1, text="E+", font=("normal","12","bold"))
+Label_T2F1Lf1Lf1C3.pack()
 
 #-----------3-上限-frame4-----------------------------------------------------------------
-frame_3_max_4 = tk.Frame(labelframe_3_axes_ymax)
-frame_3_max_4.pack(side=tk.LEFT)
+Container4_T2F1Lf1Lf1 = ttk.Frame(Labelframe1_T2F1Lf1)
+Container4_T2F1Lf1Lf1.pack(side=tk.LEFT)
 #-----------3-上限-frame4-リストボックススクロール------
-listbox_max2_nums = (str(x).zfill(2) for x in range(0,21))
-listbox_max2_nums = list(listbox_max2_nums)
-listbox_max2_lists = tk.StringVar(value=listbox_max2_nums)
-listbox_max2 = tk.Listbox(frame_3_max_4, listvariable=listbox_max2_lists, height=4, width=5, exportselection=False)
-scrollbar_max2 = tk.Scrollbar(frame_3_max_4, orient=tk.VERTICAL, command=listbox_max2.yview)
-listbox_max2["yscrollcommand"] = scrollbar_max2.set
-listbox_max2.grid(row=0, column=0, padx=(10,0))
-scrollbar_max2.grid(row=0, column=1, sticky=(tk.N, tk.S))
+listbox_nums_T2F1Lf1Lf1C4 = (str(x).zfill(2) for x in range(0,21))
+listbox_nums_T2F1Lf1Lf1C4 = list(listbox_nums_T2F1Lf1Lf1C4)
+listbox_lists_T2F1Lf1Lf1C4 = tk.StringVar(value=listbox_nums_T2F1Lf1Lf1C4)
+Listbox_T2F1Lf1Lf1C4 = tk.Listbox(Container4_T2F1Lf1Lf1, listvariable=listbox_lists_T2F1Lf1Lf1C4, height=4, width=5, exportselection=False)
+Scrollbar_T2F1Lf1Lf1C4 = tk.Scrollbar(Container4_T2F1Lf1Lf1, orient=tk.VERTICAL, command=Listbox_T2F1Lf1Lf1C4.yview)
+Listbox_T2F1Lf1Lf1C4["yscrollcommand"] = Scrollbar_T2F1Lf1Lf1C4.set
+Listbox_T2F1Lf1Lf1C4.grid(row=0, column=0, padx=(10,0))
+Scrollbar_T2F1Lf1Lf1C4.grid(row=0, column=1, sticky=(tk.N, tk.S))
 
 #-----------3-上限-frame5-----------------------------------------------------------------
-frame_3_max_5 = tk.Frame(labelframe_3_axes_ymax)
-frame_3_max_5.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
+Container5_T2F1Lf1Lf1 = ttk.Frame(Labelframe1_T2F1Lf1)
+Container5_T2F1Lf1Lf1.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
 #-----------3-上限-frame5-適用ボタン---------------------------
-btn_3_max_apply = tk.Button(frame_3_max_5, text="適用", command=btn_3_max_apply_clilck, state="disabled")
-btn_3_max_apply.pack(expand=True)
+Btn_T2F1Lf1Lf1C4 = ttk.Button(Container5_T2F1Lf1Lf1, text="適用", command=btn_3_max_apply_clilck, state="disabled")
+Btn_T2F1Lf1Lf1C4.pack(expand=True)
 
 
 
 #-----------3-下限------------------------------------------------------------------
-labelframe_3_axes_ymin = tk.LabelFrame(labelframe_3_axes_title, text="下限")
-labelframe_3_axes_ymin.propagate(False)
-labelframe_3_axes_ymin.pack(side=tk.TOP, expand=True, fill=tk.BOTH, padx=10, pady=10)
+Labelframe2_T2F1Lf1 = ttk.LabelFrame(Labelframe1_T2F1, text="下限")
+Labelframe2_T2F1Lf1.propagate(False)
+Labelframe2_T2F1Lf1.pack(side=tk.TOP, expand=True, fill=tk.BOTH, padx=10, pady=10)
 
-#-----------3-下限-frame1---------------------------------------
-frame_3_min_1 = tk.Frame(labelframe_3_axes_ymin)
-frame_3_min_1.pack(side=tk.LEFT)
-#-----------3-下限-frame1-ラジオボタン---------------
-rdo_3_min_var = tk.IntVar()
-rdo_3_min_var.set(0)
-rdo_3_1 = tk.Radiobutton(frame_3_min_1, value=0, variable=rdo_3_min_var, text="+", font=("normal","15"))
-rdo_3_1.pack(side=tk.TOP)
-rdo_3_2 = tk.Radiobutton(frame_3_min_1, value=1, variable=rdo_3_min_var, text="-", font=("normal","15"))
-rdo_3_2.pack(side=tk.TOP)
+#-----------3-下限-Frame1_T2---------------------------------------
+Container1_T2F1Lf1Lf2 = ttk.Frame(Labelframe2_T2F1Lf1)
+Container1_T2F1Lf1Lf2.pack(side=tk.LEFT)
+#-----------3-下限-Frame1_T2-ラジオボタン---------------
+var_radio_T2F1Lf1Lf2C1 = tk.IntVar()
+var_radio_T2F1Lf1Lf2C1.set(0)
+Radio0_T2F1Lf1Lf2C1 = ttk.Radiobutton(Container1_T2F1Lf1Lf2, value=0, variable=var_radio_T2F1Lf1Lf2C1, text="+", takefocus=False)
+Radio0_T2F1Lf1Lf2C1.pack(side=tk.TOP)
+Radio1_T2F1Lf1Lf2C1 = ttk.Radiobutton(Container1_T2F1Lf1Lf2, value=1, variable=var_radio_T2F1Lf1Lf2C1, text="-", takefocus=False)
+Radio1_T2F1Lf1Lf2C1.pack(side=tk.TOP)
 
-#-----------3-下限-frame2---------------------------------------
-frame_3_min_2 = tk.Frame(labelframe_3_axes_ymin)
-frame_3_min_2.pack(side=tk.LEFT)
-#-----------3-下限-frame2-リストボックススクロール------
-listbox_min1_nums = (str(0.5*x) for x in range(0,20))
-listbox_min1_nums = list(listbox_min1_nums)
-listbox_min1_lists = tk.StringVar(value=listbox_min1_nums)
-listbox_min1 = tk.Listbox(frame_3_min_2, listvariable=listbox_min1_lists, height=4, width=5, exportselection=False)
-scrollbar_min1 = tk.Scrollbar(frame_3_min_2, orient=tk.VERTICAL, command=listbox_min1.yview)
-listbox_min1["yscrollcommand"] = scrollbar_min1.set
-listbox_min1.grid(row=0, column=0, padx=(10,0))
-scrollbar_min1.grid(row=0, column=1, sticky=(tk.N, tk.S))
+#-----------3-下限-frame2_T1---------------------------------------
+Container2_T2F1Lf1Lf2 = ttk.Frame(Labelframe2_T2F1Lf1)
+Container2_T2F1Lf1Lf2.pack(side=tk.LEFT)
+#-----------3-下限-frame2_T1-リストボックススクロール------
+listbox_nums_T2F1Lf1Lf2C2 = (str(0.5*x) for x in range(0,20))
+listbox_nums_T2F1Lf1Lf2C2 = list(listbox_nums_T2F1Lf1Lf2C2)
+listbox_lists_T2F1Lf1Lf2C2 = tk.StringVar(value=listbox_nums_T2F1Lf1Lf2C2)
+Listbox_T2F1Lf1Lf2C2 = tk.Listbox(Container2_T2F1Lf1Lf2, listvariable=listbox_lists_T2F1Lf1Lf2C2, height=4, width=5, exportselection=False)
+Scrollbar_T2F1Lf1Lf2C2 = tk.Scrollbar(Container2_T2F1Lf1Lf2, orient=tk.VERTICAL, command=Listbox_T2F1Lf1Lf2C2.yview)
+Listbox_T2F1Lf1Lf2C2["yscrollcommand"] = Scrollbar_T2F1Lf1Lf2C2.set
+Listbox_T2F1Lf1Lf2C2.grid(row=0, column=0, padx=(10,0))
+Scrollbar_T2F1Lf1Lf2C2.grid(row=0, column=1, sticky=(tk.N, tk.S))
 
 #-----------3-下限-frame3-----------------------------------------------------------------
-frame_3_min_3 = tk.Frame(labelframe_3_axes_ymin)
-frame_3_min_3.pack(side=tk.LEFT)
+Container3_T2F1Lf1Lf2 = ttk.Frame(Labelframe2_T2F1Lf1)
+Container3_T2F1Lf1Lf2.pack(side=tk.LEFT)
 #-----------3-下限-frame3-ラベル------------------------------------------
-label_3_min = tk.Label(frame_3_min_3, text="E+", font=("normal","12","bold"))
-label_3_min.pack()
+Label_T2F1Lf1Lf2C3 = ttk.Label(Container3_T2F1Lf1Lf2, text="E+", font=("normal","12","bold"))
+Label_T2F1Lf1Lf2C3.pack()
 
 #-----------3-下限-frame4-----------------------------------------------------------------
-frame_3_min_4 = tk.Frame(labelframe_3_axes_ymin)
-frame_3_min_4.pack(side=tk.LEFT)
+Container4_T2F1Lf1Lf2 = ttk.Frame(Labelframe2_T2F1Lf1)
+Container4_T2F1Lf1Lf2.pack(side=tk.LEFT)
 #-----------3-下限-frame4-リストボックススクロール------
-listbox_min2_nums = (str(x).zfill(2) for x in range(0,21))
-listbox_min2_nums = list(listbox_min2_nums)
-listbox_min2_lists = tk.StringVar(value=listbox_min2_nums)
-listbox_min2 = tk.Listbox(frame_3_min_4, listvariable=listbox_min2_lists, height=4, width=5, exportselection=False)
-scrollbar_min2 = tk.Scrollbar(frame_3_min_4, orient=tk.VERTICAL, command=listbox_min2.yview)
-listbox_min2["yscrollcommand"] = scrollbar_min2.set
-listbox_min2.grid(row=0, column=0, padx=(10,0))
-scrollbar_min2.grid(row=0, column=1, sticky=(tk.N, tk.S))
+listbox_nums_T2F1Lf1Lf2C4 = (str(x).zfill(2) for x in range(0,21))
+listbox_nums_T2F1Lf1Lf2C4 = list(listbox_nums_T2F1Lf1Lf2C4)
+listbox_lists_T2F1Lf1Lf2C4 = tk.StringVar(value=listbox_nums_T2F1Lf1Lf2C4)
+Listbox_T2F1Lf1Lf2C4 = tk.Listbox(Container4_T2F1Lf1Lf2, listvariable=listbox_lists_T2F1Lf1Lf2C4, height=4, width=5, exportselection=False)
+Scrollbar_T2F1Lf1Lf2C4 = tk.Scrollbar(Container4_T2F1Lf1Lf2, orient=tk.VERTICAL, command=Listbox_T2F1Lf1Lf2C4.yview)
+Listbox_T2F1Lf1Lf2C4["yscrollcommand"] = Scrollbar_T2F1Lf1Lf2C4.set
+Listbox_T2F1Lf1Lf2C4.grid(row=0, column=0, padx=(10,0))
+Scrollbar_T2F1Lf1Lf2C4.grid(row=0, column=1, sticky=(tk.N, tk.S))
 
 #-----------3-下限-frame5-----------------------------------------------------------------
-frame_3_min_5 = tk.Frame(labelframe_3_axes_ymin)
-frame_3_min_5.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
+Container5_T2F1Lf1Lf2 = ttk.Frame(Labelframe2_T2F1Lf1)
+Container5_T2F1Lf1Lf2.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
 #-----------3-下限-frame5-ボタン---------------------------
-btn_3_min_apply = tk.Button(frame_3_min_5, text="適用", command=btn_3_min_apply_clilck, state="disabled")
-btn_3_min_apply.pack(expand=True)
+Btn_T2F1Lf1Lf2C5 = ttk.Button(Container5_T2F1Lf1Lf2, text="適用", command=btn_3_min_apply_clilck, state="disabled")
+Btn_T2F1Lf1Lf2C5.pack(expand=True)
 
 #-----------保存先ボタン---------------------------------------------
-btn_save_dir = tk.Button(frame1, text='保存先フォルダ選択', fg="red", command=btn_save_dir_click, state="disabled")
-btn_save_dir.place(x=100, y=410)
+Btn_savedir_T2F1 = ttk.Button(Frame1_T2, text='保存先フォルダ選択', command=btn_save_dir_click, state="disabled")
+Btn_savedir_T2F1.place(x=100, y=410)
 
 #-----------保存ボタン---------------------------------------------
-btn_save = tk.Button(frame1, text='保存', state="disabled", command=btn_save_click)
-btn_save.place(x=250, y=410)
+Btn_save_T2F1 = ttk.Button(Frame1_T2, text='保存', state="disabled", command=btn_save_click)
+Btn_save_T2F1.place(x=250, y=410)
 
 #-----------保存しましたボタン-------------------------------------
-label_saved = tk.Label(frame1, text="保存しました!", fg=root.cget("background")) #初期はwindow背景色
-label_saved.pack_forget()
-label_saved.place(x=300, y=413)
+Label_saved_T2F1 = ttk.Label(Frame1_T2, text="保存しました!", foreground=root.cget("background")) #初期はwindow背景色
+Label_saved_T2F1.pack_forget()
+Label_saved_T2F1.place(x=300, y=413)
 
 
 #-----------グラフ出力--frame-----------------------------------------------------------
-frame_graph = tk.Frame(tab2, bd=2, relief=tk.GROOVE, width=640, height=480)
-frame_graph.propagate(False)
-frame_graph.place(x=470, y=10)
+Frame2_T2 = ttk.Frame(Tab2, width=640, height=480)
+Frame2_T2.propagate(False)
+Frame2_T2.place(x=470, y=10)
 
 #---ラベル---
-label_graph_not_exist = tk.Label(frame_graph, text="ここにグラフが描画されます")
-label_graph_not_exist.pack(expand=True)
+Label_T2F2 = ttk.Label(Frame2_T2, text="ここにグラフが描画されます")
+Label_T2F2.pack(expand=True)
 #-------------------------------------------
 
 
